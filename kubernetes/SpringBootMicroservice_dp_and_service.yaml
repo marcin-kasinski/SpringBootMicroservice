@@ -1,0 +1,101 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: springbootmicroservice-cm-config
+data:
+  definition.json: "{\"endpoint\" : \"http://127.0.0.1:8081/api/get-by-emailM\"}"
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: springbootmicroservice-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: springbootmicroservice
+    spec:
+      volumes:
+        - name: springbootmicroservice-cm-config-volume
+          configMap:
+            name: springbootmicroservice-cm-config    
+      containers:
+      - name: springbootmicroservice
+        image: marcinkasinski/springbootmicroservice
+        imagePullPolicy: Always
+        ports:
+        - name: http-port
+          containerPort: 8081
+        volumeMounts:
+        - name: springbootmicroservice-cm-config-volume
+          mountPath: /etc/custom-metrics
+        resources:
+          requests:
+            cpu: 200m          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: springbootmicroservice
+spec:
+  type: NodePort
+  ports:
+  - port: 8081
+    nodePort: 30081
+    targetPort: 8081
+    protocol: TCP
+    name: http
+  selector:
+    app: springbootmicroservice
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: springbootmicroservice-autoscaler
+  annotations:
+    alpha/target.custom-metrics.podautoscaler.kubernetes.io: '{"items":[{"name":"qps", "value": "10"}]}'
+spec:
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: springbootmicroservice-deployment
+  targetCPUUtilizationPercentage: 10 
+  minReplicas: 1
+  maxReplicas: 10
+#  metrics:
+#  - type: Resource
+#    resource:
+#      name: cpu
+#      targetAverageUtilization: 50
+#  - type: Pods
+#    pods:
+#      metricName: packets-per-second
+#      targetAverageValue: 1k
+#  - type: Object
+#    object:
+#      metricName: requests-per-second
+#      target:
+#        apiVersion: extensions/v1beta1
+#        kind: Service
+#        name: springbootmicroservice
+#      targetValue: 10    
+---
+# An Ingress with 2 hosts and 3 endpoints
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: springbootmicroservice-ingress
+  annotations:
+    ingress.kubernetes.io/enable-cors: "true"
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: springbootmicroservice
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: springbootmicroservice
+          servicePort: 8081

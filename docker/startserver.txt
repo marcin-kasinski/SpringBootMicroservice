@@ -1,0 +1,45 @@
+docker :
+
+
+# List container size
+docker system df
+docker system df -v
+docker ps -s
+
+# Delete all containers
+docker rm -f $(docker ps -a -q)
+# Delete all images
+docker rmi -f $(docker images -q)
+# Delete all volumes
+docker volume rm `docker volume ls -q -f dangling=true`
+
+# Clean up dead and exited containers
+docker ps --filter status=dead --filter status=exited -aq | xargs docker rm -v
+
+https://lebkowski.name/docker-volumes/
+
+docker login
+sudo docker build -f dockerfile -t springbootmicroservice . && sudo docker tag springbootmicroservice marcinkasinski/springbootmicroservice && sudo docker push marcinkasinski/springbootmicroservice
+
+
+docker run -it -e HOST=mesos1.local -e PORT0=8081 marcinkasinski/springbootmicroservice
+docker run -e HOST=mesos1.local -e PORT0=8082 marcinkasinski/springbootmicroservice
+docker run -e HOST=mesos3.local -e PORT0=8081 marcinkasinski/springbootmicroservice
+
+
+export HOST=mesos1.local
+export PORT0=8082
+export PORT=8082
+
+java -jar SpringBootMicroservice-0.0.1-SNAPSHOT.jar --spring.cloud.consul.discovery.ipAddress=mesos1.local --spring.cloud.consul.discovery.port=8082 --spring.cloud.consul.host=mesos1.local
+
+d:
+cd d:\svn\maka\javaclasses_eclipse\SpringBootMicroservice
+mvn install
+java -jar d:\svn\maka\javaclasses_eclipse\SpringBootMicroservice\target\SpringBootMicroservice-0.0.1-SNAPSHOT.jar
+
+
+
+mvn spring-boot:run
+
+mvn test -Dtest=AppTest,AppTest2
