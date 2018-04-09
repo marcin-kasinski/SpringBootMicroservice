@@ -23,6 +23,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;  
 
+
+
 /*
 
 
@@ -66,7 +68,7 @@ public class MicroserviceApp {
 	public static void main(String[] args) {
 
 
-		System.out.println("MK6 MicroserviceApp ver XXX");
+		System.out.println("MK7 MicroserviceApp ver XXX");
 
 		
 		/*
