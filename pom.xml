@@ -19,9 +19,12 @@
 		<java.version>1.8</java.version>
 		<maven.compiler.source>1.8</maven.compiler.source> 
 		<maven.compiler.target>1.8</maven.compiler.target>
-<!-- 		<spring-cloud.version>Dalston.SR1</spring-cloud.version> -->
- 		<spring-cloud.version>Finchley.M9</spring-cloud.version>
-<!-- 		<spring-boot-version>1.5.10.RELEASE</spring-boot-version> --> 
+<!-- 
+spring-cloud.version
+Finchley.M9
+Edgware.SR3
+Dalston.SR3
+ --> 		<spring-cloud.version>Finchley.M9</spring-cloud.version>
   		<spring-boot-version>2.0.1.RELEASE</spring-boot-version>
   		 		<start-class>mk.MicroserviceApp</start-class>
 	</properties>
@@ -244,12 +247,10 @@
 </dependency>
  -->
 
-
 <dependency>
   <groupId>io.micrometer</groupId>
   <artifactId>micrometer-registry-graphite</artifactId>
 </dependency>
-
 
   </dependencies>
   
