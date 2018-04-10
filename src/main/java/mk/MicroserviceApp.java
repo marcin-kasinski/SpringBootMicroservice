@@ -71,17 +71,15 @@ public class MicroserviceApp {
 		System.out.println("MK7 MicroserviceApp ver XXX");
 
 		
-		/*
+	System.out.println("ENV variables");
+		
 
-System.out.println("MK6 MicroserviceApp ENV variables");
+		Map<String, String> env = System.getenv();
+		for (String envName : env.keySet()) {
+			System.out.format("%s=%s%n", envName, env.get(envName));
+		}
 
 
-Map<String, String> env = System.getenv();
-for (String envName : env.keySet()) {
-    System.out.format("%s=%s%n", envName, env.get(envName));
-}
-
-*/
 		
 		SpringApplication.run(MicroserviceApp.class, args);
 		}
