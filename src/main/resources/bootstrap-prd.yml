@@ -47,7 +47,7 @@ spring:
             auto-commit: true
         url: jdbc:mysql://mysql:3306/test
         username: root
-        password: 
+        password: secret
 #spring.datasource.driver-class-name=Driver
 # Allows Hibernate to generate SQL optimized for a particular DBMS
     jpa:
