@@ -14,7 +14,7 @@ management:
 #    influxdbeserver: monitoring-influxdb.kube-system.svc.cluster.local                
     influxdbeserver: monitoring-influxdb
 management.metrics.export.graphite:
-    host: k8snode1.local
+    host: 192.168.1.12
 #                 port: 2003 
     port: 30003
     protocol: Plaintext
@@ -59,7 +59,7 @@ spring:
         password:guest
         port:5672
     zipkin:
-        baseUrl: http://springbootzipkin:7777
+        baseUrl: http://springbootzipkin:30080
     sleuth:
         sampler:
             percentage: 1

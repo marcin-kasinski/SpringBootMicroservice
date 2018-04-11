@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import java.util.List;
-
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.slf4j.Logger;
@@ -201,7 +201,7 @@ public class Microservice {
 		User user;
 
 		log.info("Microservice get-by-email executed");
-/*
+
 		Set<String> keys = headers.keySet();
 		System.out.println("Headers start");
 
@@ -220,15 +220,15 @@ public class Microservice {
 		
 		System.out.println("Headers end");
 
-	*/	
+
 //		System.out.println("/get-by-email " + email);
 
 		String userId = "";
 		try {
 			user = userRepository.findByEmail(email);
 
-//			System.out.println("getId " + user.getId());
-//			System.out.println("getName " + user.getName());
+			log.info("getId " + user.getId());
+			log.info("getName " + user.getName());
 //			System.out.println("getEmail " + user.getEmail());
 
 			userId = String.valueOf(user.getId());

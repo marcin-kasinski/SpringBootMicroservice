@@ -4,15 +4,7 @@
   <artifactId>SpringBootMicroservice</artifactId>
   <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    
-    <!-- 
-    	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.3.RELEASE</version>
-		<relativePath/>
-	</parent>
- -->
+  
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -22,10 +14,12 @@
 <!-- 
 spring-cloud.version
 Finchley.M9
+Finchley.BUILD-SNAPSHOT
 Edgware.SR3
 Dalston.SR3
- --> 		<spring-cloud.version>Finchley.M9</spring-cloud.version>
-  		<spring-boot-version>2.0.1.RELEASE</spring-boot-version>
+Fishtown.BUILD-SNAPSHOT
+ --> 		<spring-cloud.version>Dalston.SR3</spring-cloud.version>
+  		<spring-boot-version>1.5.10.RELEASE</spring-boot-version>
   		 		<start-class>mk.MicroserviceApp</start-class>
 	</properties>
   
@@ -247,11 +241,12 @@ Dalston.SR3
 </dependency>
  -->
 
+<!-- 
 <dependency>
   <groupId>io.micrometer</groupId>
   <artifactId>micrometer-registry-graphite</artifactId>
 </dependency>
-
+ -->
 
   </dependencies>
   
@@ -280,6 +275,7 @@ Dalston.SR3
   
   
   <repositories>
+
     <repository>
         <id>spring-milestones</id>
         <name>Spring Milestones</name>
@@ -288,6 +284,15 @@ Dalston.SR3
             <enabled>false</enabled>
         </snapshots>
     </repository>
+
+    <repository>
+        <id>spring-snapshots</id>
+        <name>Spring Snapshots</name>
+        <url>https://repo.spring.io/libs-snapshot</url>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+    </repository>   
 </repositories>
   
 </project>
