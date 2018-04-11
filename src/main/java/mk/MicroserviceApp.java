@@ -83,7 +83,6 @@ public class MicroserviceApp {
 		
 		SpringApplication.run(MicroserviceApp.class, args);
 		}
-	
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
@@ -96,4 +95,6 @@ public class MicroserviceApp {
         };
     }  
 	
+
+    
 }

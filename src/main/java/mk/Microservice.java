@@ -20,14 +20,17 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.micrometer.core.instrument.Counter;
+//2.0.1
+//import io.micrometer.core.instrument.Counter;
+//import io.micrometer.core.instrument.Metrics;
 
+//1.5.10
 //import com.codahale.metrics.Counter;
 //import com.codahale.metrics.Gauge;
 //import com.codahale.metrics.MetricRegistry;
 //import com.codahale.metrics.Timer;
 
-import io.micrometer.core.instrument.Metrics;
+
 import mk.metrics.SampleMetricBean;
 
 //@EnableDiscoveryClient
@@ -40,7 +43,7 @@ public class Microservice {
 	
 	
 	
-	private final Counter successesCounter = (Counter) Metrics.counter("MKsuccessesCounter6.index", "result", "success");
+//	private final Counter successesCounter = (Counter) Metrics.counter("MKsuccessesCounter6.index", "result", "success");
 
 	private static Logger log = LoggerFactory.getLogger(Microservice.class);
 
@@ -125,8 +128,8 @@ public class Microservice {
 
 		System.out.println("/findallusersbyemail " + email);
 
-		successesCounter.increment();
-		sampleBean.handleMessage("XXX");
+//		successesCounter.increment();
+//		sampleBean.handleMessage("XXX");
 
 		System.out.println("successesCounter.increment()");
 

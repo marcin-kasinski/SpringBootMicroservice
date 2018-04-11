@@ -2,12 +2,14 @@ package mk.metrics;
 
 import org.springframework.stereotype.Component;
 
+/*
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
+*/
 
 @Component
 public class SampleMetricBean {
-
+/*
 	private final Counter counter;
 
 	public SampleMetricBean(MeterRegistry registry) {
@@ -20,5 +22,5 @@ public class SampleMetricBean {
 		this.counter.increment();
 		System.out.println("handleMessage END");
 	}
-
+*/
 }
