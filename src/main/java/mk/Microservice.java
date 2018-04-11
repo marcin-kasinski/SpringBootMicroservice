@@ -200,7 +200,7 @@ public class Microservice {
 
 		User user;
 
-		log.info("Microservice get-by-email executed");
+		log.info("Microservice get-by-email executed ["+email+"]");
 
 		Set<String> keys = headers.keySet();
 		System.out.println("Headers start");
