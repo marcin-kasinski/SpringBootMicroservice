@@ -6,11 +6,6 @@ logging:
                 graphite: DEBUG
 server:
     port: 9191
-management:
-    security:
-        enabled: false
-
-
 #    influxdbeserver: monitoring-influxdb.kube-system.svc.cluster.local                
     influxdbeserver: monitoring-influxdb
 management.metrics.export.graphite:
@@ -63,4 +58,24 @@ spring:
         sampler:
             percentage: 1
             probability: 1
- 
+endpoints:
+    prometheus:
+        enabled: true 
+management:
+    security:
+        enabled: false
+    endpoint:
+        metrics:
+            enabled: true
+        prometheus:
+            enabled: true 
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+        metrics:
+            enabled: true
+    metrics:
+        export:
+            prometheus:
+                enabled: true            

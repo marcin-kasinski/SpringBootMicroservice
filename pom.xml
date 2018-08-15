@@ -18,8 +18,12 @@ Finchley.BUILD-SNAPSHOT
 Edgware.SR3
 Dalston.SR3
 Fishtown.BUILD-SNAPSHOT
- --> 		<spring-cloud.version>Dalston.SR3</spring-cloud.version>
-  		<spring-boot-version>1.5.10.RELEASE</spring-boot-version>
+
+2.0.4.RELEASE Finchley.RELEASE
+1.5.10.RELEASE Dalston.SR3
+
+ --> 		<spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+  		<spring-boot-version>2.0.4.RELEASE</spring-boot-version>
   		 		<start-class>mk.MicroserviceApp</start-class>
 	</properties>
   
@@ -246,6 +250,32 @@ Fishtown.BUILD-SNAPSHOT
   <version>1.0.3</version>
 </dependency>
  -->
+ 
+ <!-- 
+ <dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-spring-legacy</artifactId>
+    <version>1.0.6</version>
+</dependency>
+ -->
+ <!-- Micormeter core dependecy  -->
+
+<dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-core</artifactId>
+</dependency>
+<dependency>
+  <groupId>io.micrometer</groupId>
+  <artifactId>micrometer-registry-prometheus</artifactId>
+</dependency>
+
+ <dependency>
+        <groupId>io.prometheus</groupId>
+        <artifactId>simpleclient</artifactId>
+        <version>0.5.0</version>
+    </dependency>
+
+
 
   </dependencies>
   
