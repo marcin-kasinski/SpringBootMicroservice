@@ -190,6 +190,9 @@ public class Microservice {
 	public User getByEmail(@RequestParam(value = "email", defaultValue = ".") String email,
 			@RequestHeader HttpHeaders headers) {
 		processRequest();
+		
+		sampleBean.handleMessage("XXX");
+
 		// ------------------------ custom counter ------------------------//
 //		Counter mkCustomCounter = metricRegistry.counter("mkCustomCounter");
 //		mkCustomCounter.inc();
