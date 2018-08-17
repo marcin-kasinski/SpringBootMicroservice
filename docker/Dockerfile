@@ -7,7 +7,8 @@ MAINTAINER Marcin Kasiñski <marcin.kasinski@gmail.com>
 ########################################## starting Logstash  ##########################################
 
 # install Filebeat
-ENV FILEBEAT_VERSION=filebeat-5.5.2-amd64.deb
+#ENV FILEBEAT_VERSION=filebeat-5.5.2-amd64.deb
+ENV FILEBEAT_VERSION=filebeat-6.3.2-amd64.deb
 
 RUN mkdir /usr/src/myapp \
 && mkdir /usr/src/myapp/logs \
