@@ -1,5 +1,7 @@
 package mk;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -120,6 +122,21 @@ public class Microservice {
 		// return "User succesfully created with id = " + userId;
 		return user;
 	}
+	
+
+	@RequestMapping("/gethostname")
+	// @ResponseBody
+	public String getHostname() 
+		{
+				String ret = null;
+				try {
+					ret = InetAddress.getLocalHost().getHostName();
+				} catch (UnknownHostException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return ret;
+		}
 
 	// http://localhost:9191/api/findallusersbyemail?email=x@x.com
 	@RequestMapping("/findallusersbyemail")
