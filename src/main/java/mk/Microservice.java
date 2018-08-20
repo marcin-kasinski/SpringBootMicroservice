@@ -43,8 +43,6 @@ public class Microservice {
 	@Autowired
 	private SampleMetricBean sampleBean;
 	
-	
-	
 //	private final Counter successesCounter = (Counter) Metrics.counter("MKsuccessesCounter6.index", "result", "success");
 
 	private static Logger log = LoggerFactory.getLogger(Microservice.class);
