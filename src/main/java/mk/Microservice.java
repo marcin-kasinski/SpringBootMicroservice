@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.LongTaskTimer;
+import io.micrometer.core.instrument.LongTaskTimer.Sample;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
 
 //2.0.1
 //import io.micrometer.core.instrument.Counter;
@@ -40,8 +47,26 @@ import mk.metrics.SampleMetricBean;
 @RequestMapping("/api")
 public class Microservice {
 
+	public Microservice() {
+		super();
+
+		/*
+		Counter counter = Counter
+				  .builder("instance")
+				  .description("indicates instance count of the object")
+				  .tags("dev", "performance")
+				  .register(registry);
+				  
+				  	*/
+
+				  	
+				  	}
+
 	@Autowired
 	private SampleMetricBean sampleBean;
+
+	@Autowired
+	MeterRegistry registry;
 	
 //	private final Counter successesCounter = (Counter) Metrics.counter("MKsuccessesCounter6.index", "result", "success");
 
@@ -148,7 +173,7 @@ public class Microservice {
 
 		System.out.println("successesCounter.increment()");
 
-//		Timer t = metricRegistry.timer("endpoint.test");
+//		Timer t = registry.timer("MK_execution time");
 //		Timer.Context c = t.time();
 		log.info("Microservice findAllUsersByEmail executed");
 
@@ -206,15 +231,23 @@ public class Microservice {
 			@RequestHeader HttpHeaders headers) {
 		processRequest();
 		
+		
+		long start1 = System.currentTimeMillis();
+		long start2 = System.nanoTime();
+		
 		sampleBean.handleMessage("XXX");
-
+		
+	
 		// ------------------------ custom counter ------------------------//
 //		Counter mkCustomCounter = metricRegistry.counter("mkCustomCounter");
 //		mkCustomCounter.inc();
 		// ------------------------ custom counter ------------------------//
 
-//		Timer t = metricRegistry.timer("endpoint.MKget-by-email");
-//		Timer.Context c = t.time();
+		Timer timer = registry.timer("endpoint.MK22get-by-email.MK33_execution_time");
+//		Timer timer = registry.timer("endpoint.MKget-by-email.MK_execution_time");
+		
+		
+//		LongTaskTimer longTaskTimer = LongTaskTimer .builder("endpoint.MKget-by-email.MK_execution_time") .register(registry);
 
 		User user;
 
@@ -245,6 +278,20 @@ public class Microservice {
 		try {
 			user = userRepository.findByEmail(email);
 
+			
+			Long longobj = new Long(user.getId());
+			
+			Gauge gauge = Gauge  .builder("endpoint.MKget-by-email.MK_gauge", longobj,Long::longValue)
+					.tags("userid",user.getId().toString())
+					.tags("tag1", "1111111")
+					.tags("tag2", "22222222")
+					.tags("tagx", "xxxxxxxx")
+					
+					  .register(registry);
+			
+			
+			
+			
 			log.info("getId " + user.getId());
 			log.info("getName " + user.getName());
 //			System.out.println("getEmail " + user.getEmail());
@@ -268,7 +315,19 @@ public class Microservice {
 
 			return null;
 		} finally {
-//			c.stop();
+	//		long timeElapsed = longTaskTimer.stop(currentTaskId.stop());
+			
+
+
+			long stop1 = System.currentTimeMillis();
+		    long diff1 = stop1 - start1;
+
+			long stop2 = System.nanoTime();
+			long diff2 = stop2 - start2;
+
+			System.out.println("\nstart1="+start1+"\nstop1 ="+stop1+"\nDiff1="+diff1);
+			System.out.println("\nstart2="+start2+"\nstop2 ="+stop2+"\nDiff2="+diff2);
+			timer.record(diff1,  TimeUnit.MILLISECONDS);
 
 		}
 		// return "The user id is: " + userId;
