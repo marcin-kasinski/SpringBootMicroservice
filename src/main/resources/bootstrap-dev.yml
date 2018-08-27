@@ -44,6 +44,9 @@ spring:
         username: root
         password: 
 #spring.datasource.driver-class-name=Driver
+    data:
+        mongodb:
+            uri: mongodb://mongo:32017/mkdatabase
 # Allows Hibernate to generate SQL optimized for a particular DBMS
     jpa:
         properties:

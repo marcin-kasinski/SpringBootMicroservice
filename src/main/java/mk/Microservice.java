@@ -16,9 +16,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.actuate.metrics.CounterService;
 //import org.springframework.boot.actuate.metrics.GaugeService;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +34,8 @@ import io.micrometer.core.instrument.LongTaskTimer;
 import io.micrometer.core.instrument.LongTaskTimer.Sample;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
+import mk.dao.MongoUserRepository;
+import mk.dao.MysqlUserRepository;
 
 //2.0.1
 //import io.micrometer.core.instrument.Counter;
@@ -41,6 +49,10 @@ import io.micrometer.core.instrument.Timer;
 
 
 import mk.metrics.SampleMetricBean;
+import mk.model.MongoUser;
+import mk.model.User;
+import mk.service.UserNumService;
+import mk.service.UserNumServiceImpl;
 
 //@EnableDiscoveryClient
 @RestController
@@ -63,6 +75,9 @@ public class Microservice {
 				  	}
 
 	@Autowired
+	private UserNumService userNumService;
+	
+	@Autowired
 	private SampleMetricBean sampleBean;
 
 	@Autowired
@@ -75,7 +90,10 @@ public class Microservice {
 	// Private fields
 
 	@Autowired
-	private UserRepository userRepository;
+	private MysqlUserRepository mysqlUserRepository;
+
+	@Autowired
+	private MongoUserRepository mongoUserRepository;
 /*
 	@Autowired
 	CounterService counterService;
@@ -137,7 +155,7 @@ public class Microservice {
 		User user = null;
 		try {
 			user = new User(email, name);
-			userRepository.save(user);
+			mysqlUserRepository.save(user);
 			userId = String.valueOf(user.getId());
 		} catch (Exception ex) {
 			// return "Error creating the user: " + ex.toString();
@@ -181,7 +199,7 @@ public class Microservice {
 
 		String userId = "";
 		try {
-			users = userRepository.findAllUsersByEmail(email);
+			users = mysqlUserRepository.findAllUsersByEmail(email);
 
 			System.out.println("users size " + users.size());
 //			this.counterService.increment("greetMK.txnCount");
@@ -219,12 +237,64 @@ public class Microservice {
 	{
 		return 	"# TYPE qps gauge\nqps "+String.valueOf(mkrrequestsperminute);
 	}
-
 	
+	// http://localhost:9191/api/getMongoUserByEmail?email=marcin2@marcin.com
+	@RequestMapping("/getMongoUserByEmail")	
+	public MongoUser getMongoUserByEmail(@RequestParam(value = "email", defaultValue = ".") String email,
+			@RequestHeader HttpHeaders headers) {
+		
+		MongoUser user = mongoUserRepository.findByEmail(email);
+		List<MongoUser> users = mongoUserRepository.findAll();
+
+		System.out.println("email "+email);		
+		System.out.println("red users");
+		
+		int size=users.size();
+		
+		for (int i=0;i<size;i++)
+		{
+			System.out.println(users.get(i));
+			
+		}//for
+		
+		System.out.println(user);
+		
+		return user;
+	}
+
+	//http://localhost:9191/api/adduser
+	//@RequestMapping(value="/adduser", method = RequestMethod.POST)
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/adduser",produces = MediaType.APPLICATION_JSON_VALUE)
+	//@PostMapping("/adduser")
+	public MongoUser addUser(@RequestBody MongoUser user)
+	{
+		System.out.println(user);
+		
+		
+//		MongoUser user2= new MongoUser();
+//		user2.setId(new Long(12345));
+//		user2.setName("Marcin2");
+//		user2.setEmail("marcin2@marcin.com");
+
+		System.out.println("Getting id");
+		if (userNumService==null )
+			System.out.println("userNumService is null");
+		else System.out.println("userNumService is not null");
+
+		long id=userNumService.getNext();
+		System.out.println("id:"+id);
+		
+		
+		user.setId(id);
+		
+		mongoUserRepository.save(user);
+		System.out.println(user);
+		return user;
+	}
+			
 	
 	// http://localhost:8081/api/get-by-email?email=x@x.com
-
-	
 	@RequestMapping("/get-by-email")
 	// @ResponseBody
 	public User getByEmail(@RequestParam(value = "email", defaultValue = ".") String email,
@@ -276,7 +346,7 @@ public class Microservice {
 
 		String userId = "";
 		try {
-			user = userRepository.findByEmail(email);
+			user = mysqlUserRepository.findByEmail(email);
 
 			
 			Long longobj = new Long(user.getId());

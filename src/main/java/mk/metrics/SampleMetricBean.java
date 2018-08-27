@@ -12,6 +12,9 @@ public class SampleMetricBean {
 	private final Counter counter;
 
 	public SampleMetricBean(MeterRegistry registry) {
+		
+		
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Registering");
 		this.counter = registry.counter("MK_6_received.messages");
 	}
 
