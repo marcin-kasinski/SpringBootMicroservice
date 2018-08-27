@@ -45,7 +45,7 @@ spring:
 #spring.datasource.driver-class-name=Driver
     data:
         mongodb:
-            uri: mongodb://mongodb-routers-0.mongodb-router-cs.default.svc.cluster.local:27017/mkdatabase
+            uri: ${MONGODB_URL:"mongodb://mongodb-router-cs.default.svc.cluster.local:27017/mkdatabase"}
 # Allows Hibernate to generate SQL optimized for a particular DBMS
     jpa:
         properties:
