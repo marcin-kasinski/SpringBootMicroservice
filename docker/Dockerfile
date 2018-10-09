@@ -1,5 +1,5 @@
-FROM openjdk:8
-MAINTAINER Marcin Kasiñski <marcin.kasinski@gmail.com> 
+FROM openjdk:9
+MAINTAINER Marcin Kasiï¿½ski <marcin.kasinski@gmail.com> 
 
 
 
