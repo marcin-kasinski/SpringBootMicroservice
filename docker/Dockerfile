@@ -8,7 +8,7 @@ MAINTAINER Marcin Kasi�ski <marcin.kasinski@gmail.com>
 
 # install Filebeat
 #ENV FILEBEAT_VERSION=filebeat-5.5.2-amd64.deb
-ENV FILEBEAT_VERSION=filebeat-6.3.2-amd64.deb
+ENV FILEBEAT_VERSION=filebeat-6.4.2-amd64.deb
 
 RUN mkdir /usr/src/myapp \
 && mkdir /usr/src/myapp/logs \
