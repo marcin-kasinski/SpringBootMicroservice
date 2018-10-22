@@ -80,7 +80,7 @@ public class MicroserviceApp {
 	public static void main(String[] args) {
 
 
-		System.out.println("MK7 MicroserviceApp ver XXX");
+		System.out.println("MicroserviceApp ver 22.10.2018");
 
 		
 	System.out.println("ENV variables");
