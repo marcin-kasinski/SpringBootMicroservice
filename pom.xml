@@ -54,37 +54,38 @@ Fishtown.BUILD-SNAPSHOT
  -->
 
 			</plugin>
- 
+
+<!--
 	<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 				<includes>
+
              <include>src/main/java/**/*.java</include>
-        
+
         </includes>
 				</configuration>
 			</plugin>
-
-<!-- 
-
+-->
 
 <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <archive>
+    
+ <!-- 
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>mk.App</mainClass>
+                            <mainClass>mk.MicroserviceApp</mainClass>
                         </manifest>
+ -->                        
                     </archive>
                 </configuration>
             </plugin>
      
 
- -->
- 
  	
 
 			<!-- .... other plugins ... -->
@@ -132,14 +133,16 @@ Fishtown.BUILD-SNAPSHOT
 			<!-- antrun plugin end -->
 			<!-- =========================================== -->
 
-				
-				
- 
- 
 		</plugins>
     
       </build>
   <dependencies>
+
+ <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+<!--             <scope>test</scope> -->
+        </dependency>
 
 <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
 <dependency>
