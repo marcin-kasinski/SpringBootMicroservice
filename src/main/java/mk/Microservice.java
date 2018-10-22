@@ -397,9 +397,18 @@ public class Microservice {
 
 			System.out.println("\nstart1="+start1+"\nstop1 ="+stop1+"\nDiff1="+diff1);
 			System.out.println("\nstart2="+start2+"\nstop2 ="+stop2+"\nDiff2="+diff2);
-			timer.record(diff1,  TimeUnit.MILLISECONDS);
+			
+			System.out.println("A");
+			if (timer==null) 			System.out.println("Timer is NULL");
+
+			if (timer!=null) 		timer.record(diff1,  TimeUnit.MILLISECONDS);
+			System.out.println("B");
 
 		}
+		
+		System.out.println("Microservice get-by-email end with user "+user);
+
+		
 		// return "The user id is: " + userId;
 		return user;
 	}

@@ -13,6 +13,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 //import org.springframework.cloud.consul.ConsulAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -62,12 +63,15 @@ use test;
 
 //@EnableDiscoveryClient
 @SpringBootApplication
+
 //@Configuration
 //@EnableAutoConfiguration(exclude = {ConsulAutoConfiguration.class})
 //@EnableJpaRepositories(basePackages = {"mk"})
 
-@EnableMongoRepositories(basePackageClasses = MongoUserRepository.class)
-@EnableJpaRepositories (basePackageClasses = MysqlUserRepository.class)
+
+//@EnableMongoRepositories(basePackageClasses = MongoUserRepository.class)
+//@EnableJpaRepositories (basePackageClasses = MysqlUserRepository.class)
+
 public class MicroserviceApp {
 
 //	@Value("${spring.cloud.consul.discovery.instanceId}")
