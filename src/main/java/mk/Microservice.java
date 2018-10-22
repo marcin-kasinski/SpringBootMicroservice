@@ -263,6 +263,16 @@ public class Microservice {
 	}
 
 	//http://localhost:9191/api/adduser
+	
+	
+	/*
+{
+	"_id" :3,
+	"name" : "Marcin2",
+	"email" : "marcin2@marcin.com",
+}
+	 */
+	
 	//@RequestMapping(value="/adduser", method = RequestMethod.POST)
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/adduser",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -295,6 +305,7 @@ public class Microservice {
 			
 	
 	// http://localhost:8081/api/get-by-email?email=x@x.com
+	// http://springbootmicroservice-cs:9191/api/get-by-email?email=x@x.com
 	@RequestMapping("/get-by-email")
 	// @ResponseBody
 	public User getByEmail(@RequestParam(value = "email", defaultValue = ".") String email,
