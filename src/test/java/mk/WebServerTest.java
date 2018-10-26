@@ -30,7 +30,7 @@ public class WebServerTest {
 	private MockMvc mockMvc;
 
 	@Autowired
-	private Microservice controller;
+	private MicroserviceController controller;
 
 	@LocalServerPort
 	private int port;
