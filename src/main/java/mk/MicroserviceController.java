@@ -305,7 +305,12 @@ public class MicroserviceController {
 	//@PostMapping("/adduser")
 	public MongoUser addUser(@RequestBody MongoUser user)
 	{
-		System.out.println(user);
+
+		log.info("addUser START");
+
+		log.info("executing addUser "+user);
+
+		log.info(user.toString());
 		
 		
 //		MongoUser user2= new MongoUser();
@@ -313,19 +318,19 @@ public class MicroserviceController {
 //		user2.setName("Marcin2");
 //		user2.setEmail("marcin2@marcin.com");
 
-		System.out.println("Getting id");
+		log.info("Getting id");
 		if (userNumService==null )
-			System.out.println("userNumService is null");
-		else System.out.println("userNumService is not null");
+			log.info("userNumService is null");
+		else log.info("userNumService is not null");
 
 		long id=userNumService.getNext();
-		System.out.println("id:"+id);
-		
-		
+		log.info("id:"+id);
+
 		user.setId(id);
 		
 		mongoUserRepository.save(user);
-		System.out.println(user);
+		log.info("after save "+user);
+		log.info("addUser END");
 		return user;
 	}
 			
