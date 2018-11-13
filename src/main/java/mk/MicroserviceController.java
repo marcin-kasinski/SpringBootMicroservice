@@ -28,6 +28,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpServerErrorException;
+
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.LongTaskTimer;
@@ -280,7 +284,23 @@ public class MicroserviceController {
 	 */
 	
 	//@RequestMapping(value="/adduser", method = RequestMethod.POST)
+
+	public MongoUser addUser_fallbackMethod(MongoUser user)
+	{
+		MongoUser user2= new MongoUser();
+		user2.setId(new Long(12345));
+		user2.setName("fallback");
+		user2.setEmail("fallback@fallback");
+		return user2;
+		
+	}
 	
+    //@HystrixCommand(fallbackMethod = "getDataFallBack",ignoreExceptions = { HttpServerErrorException.class } ,commandProperties = {
+    //	     @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000") ,
+    // 	     @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "60000") 
+    //	     })	
+	
+	@HystrixCommand(commandKey = "addUser", fallbackMethod = "addUser_fallbackMethod")
 	@RequestMapping(method = RequestMethod.POST, value = "/adduser",produces = MediaType.APPLICATION_JSON_VALUE)
 	//@PostMapping("/adduser")
 	public MongoUser addUser(@RequestBody MongoUser user)
