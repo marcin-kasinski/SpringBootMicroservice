@@ -13,6 +13,12 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.connection.RedisPassword;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 //import org.springframework.boot.actuate.metrics.CounterService;
 //import org.springframework.boot.actuate.metrics.GaugeService;
 import org.springframework.http.HttpHeaders;
@@ -63,6 +69,24 @@ import mk.service.UserNumServiceImpl;
 @RestController
 @RequestMapping("/api")
 public class MicroserviceController {
+	
+	
+	@Bean
+	JedisConnectionFactory jedisConnectionFactory() {
+
+		  RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration("localhost", 6379);
+		    redisStandaloneConfiguration.setPassword(RedisPassword.of("yourRedisPasswordIfAny"));
+		    return new JedisConnectionFactory(redisStandaloneConfiguration);
+
+	}
+	 
+	@Bean
+	public RedisTemplate<String, Object> redisTemplate() {
+	    RedisTemplate<String, Object> template = new RedisTemplate<>();
+	    template.setConnectionFactory(jedisConnectionFactory());
+	    return template;
+	}
+
 
 	public MicroserviceController() {
 		super();
@@ -339,6 +363,7 @@ public class MicroserviceController {
 	// http://springbootmicroservice-cs:9191/api/get-by-email?email=x@x.com
 	@RequestMapping("/get-by-email")
 	// @ResponseBody
+	@Cacheable("getByEmail")
 	public User getByEmail(@RequestParam(value = "email", defaultValue = ".") String email,
 			@RequestHeader HttpHeaders headers) {
 		processRequest();
