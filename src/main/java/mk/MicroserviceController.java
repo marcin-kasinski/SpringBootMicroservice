@@ -70,7 +70,7 @@ import mk.service.UserNumServiceImpl;
 @RequestMapping("/api")
 public class MicroserviceController {
 	
-	
+	/*
 	@Bean
 	JedisConnectionFactory jedisConnectionFactory() {
 
@@ -87,7 +87,7 @@ public class MicroserviceController {
 	    template.setConnectionFactory(jedisConnectionFactory());
 	    return template;
 	}
-
+*/
 
 	public MicroserviceController() {
 		super();
