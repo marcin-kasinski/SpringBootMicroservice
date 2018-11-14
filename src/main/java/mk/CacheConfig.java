@@ -30,6 +30,7 @@ public class CacheConfig {
 	    RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
 
 	      // just used StringRedisTemplate for simplicity here.
+	    	    	
 	      return new StringRedisTemplate(factory);
 	    }
 }
