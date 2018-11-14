@@ -69,25 +69,6 @@ import mk.service.UserNumServiceImpl;
 @RestController
 @RequestMapping("/api")
 public class MicroserviceController {
-	
-	/*
-	@Bean
-	JedisConnectionFactory jedisConnectionFactory() {
-
-		log.info("jedisConnectionFactory init");
-		  RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration("redis-0.redis-hs.default.svc.cluster.local", 6379);
-		    redisStandaloneConfiguration.setPassword(RedisPassword.of("yourRedisPasswordIfAny"));
-		    return new JedisConnectionFactory(redisStandaloneConfiguration);
-
-	}
-	 
-	@Bean
-	public RedisTemplate<String, Object> redisTemplate() {
-	    RedisTemplate<String, Object> template = new RedisTemplate<>();
-	    template.setConnectionFactory(jedisConnectionFactory());
-	    return template;
-	}
-*/
 
 	public MicroserviceController() {
 		super();
@@ -364,7 +345,7 @@ public class MicroserviceController {
 	// http://springbootmicroservice-cs:9191/api/get-by-email?email=x@x.com
 	@RequestMapping("/get-by-email")
 	// @ResponseBody
-	@Cacheable("getByEmail")
+	@Cacheable(value= "getByEmail",  key = "#email")
 	public User getByEmail(@RequestParam(value = "email", defaultValue = ".") String email,
 			@RequestHeader HttpHeaders headers) {
 		processRequest();
