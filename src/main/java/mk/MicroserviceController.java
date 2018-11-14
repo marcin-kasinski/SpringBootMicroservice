@@ -74,7 +74,8 @@ public class MicroserviceController {
 	@Bean
 	JedisConnectionFactory jedisConnectionFactory() {
 
-		  RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration("localhost", 6379);
+		log.info("jedisConnectionFactory init");
+		  RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration("redis-0.redis-hs.default.svc.cluster.local", 6379);
 		    redisStandaloneConfiguration.setPassword(RedisPassword.of("yourRedisPasswordIfAny"));
 		    return new JedisConnectionFactory(redisStandaloneConfiguration);
 
