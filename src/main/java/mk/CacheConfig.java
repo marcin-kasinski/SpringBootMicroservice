@@ -4,6 +4,9 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.cache.annotation.CachingConfigurer;
+import org.springframework.cache.annotation.CachingConfigurerSupport;
+import org.springframework.cache.interceptor.CacheErrorHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
@@ -16,7 +19,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
-public class CacheConfig {
+public class CacheConfig extends CachingConfigurerSupport implements CachingConfigurer {
 
 	//redis-0.redis-hs.default.svc.cluster.local:6379,redis-1.redis-hs.default.svc.cluster.local:6379,redis-2.redis-hs.default.svc.cluster.local:6379,redis-3.redis-hs.default.svc.cluster.local:6379,redis-4.redis-hs.default.svc.cluster.local:6379,redis-5.redis-hs.default.svc.cluster.local:6379
 	List<String> clusterNodes = Arrays.asList("redis-0.redis-hs.default.svc.cluster.local:6379", 
@@ -67,5 +70,10 @@ public class CacheConfig {
 	 	  .build();
 	 	return rcm;
 	    }  
+	    
+	    @Override
+	    public CacheErrorHandler errorHandler() {
+	        return new RedisCacheErrorHandler();
+	    }
 	    
 }
