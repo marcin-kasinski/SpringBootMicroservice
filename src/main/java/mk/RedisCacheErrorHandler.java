@@ -27,25 +27,25 @@ public class RedisCacheErrorHandler implements CacheErrorHandler {
         //cacheManager.
 
 		//redisConnectionFactory.getConnection().
-        RedisConnectionUtils.releaseConnection(redisConnectionFactory.getConnection(), redisConnectionFactory);
+
     }
 
     @Override
     public void handleCachePutError(RuntimeException exception, Cache cache, Object key, Object value) {
         log.info("Unable to put into cache " + cache.getName() + " : " + exception.getMessage());
-        RedisConnectionUtils.releaseConnection(redisConnectionFactory.getConnection(), redisConnectionFactory);
+
     }
 
     @Override
     public void handleCacheEvictError(RuntimeException exception, Cache cache, Object key) {
         log.info("Unable to evict from cache " + cache.getName() + " : " + exception.getMessage());
-        RedisConnectionUtils.releaseConnection(redisConnectionFactory.getConnection(), redisConnectionFactory);
+
     }
 
     @Override
     public void handleCacheClearError(RuntimeException exception, Cache cache) {
         log.info("Unable to clean cache " + cache.getName() + " : " + exception.getMessage());
-        RedisConnectionUtils.releaseConnection(redisConnectionFactory.getConnection(), redisConnectionFactory);
+
     }
 
 }
