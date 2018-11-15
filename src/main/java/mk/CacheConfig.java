@@ -1,10 +1,13 @@
 package mk;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.*;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -22,7 +25,7 @@ public class CacheConfig {
 			"redis-5.redis-hs.default.svc.cluster.local:6379");
 
 	    @Bean
-	    RedisConnectionFactory connectionFactory() {
+	    RedisConnectionFactory redisConnectionFactory() {
 	      return new JedisConnectionFactory(new RedisClusterConfiguration(clusterNodes));
 	    }
 
@@ -33,4 +36,22 @@ public class CacheConfig {
 	    	    	
 	      return new StringRedisTemplate(factory);
 	    }
+	    
+	    @Bean
+	    public RedisCacheConfiguration cacheConfiguration() {
+	 	RedisCacheConfiguration cacheConfig = RedisCacheConfiguration.defaultCacheConfig()
+	 	  .entryTtl(Duration.ofSeconds(600))
+	 	  .disableCachingNullValues();	
+	 	return cacheConfig;
+	    }	    
+	    
+	    @Bean
+	    public RedisCacheManager cacheManager() {
+	 	RedisCacheManager rcm = RedisCacheManager.builder(redisConnectionFactory())
+//	 	  .cacheDefaults(cacheConfiguration())
+	 	  .transactionAware()
+	 	  .build();
+	 	return rcm;
+	    }  
+	    
 }
