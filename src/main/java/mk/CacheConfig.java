@@ -13,6 +13,8 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
+import redis.clients.jedis.JedisPoolConfig;
+
 @Configuration
 public class CacheConfig {
 
@@ -26,7 +28,19 @@ public class CacheConfig {
 
 	    @Bean
 	    RedisConnectionFactory redisConnectionFactory() {
-	      return new JedisConnectionFactory(new RedisClusterConfiguration(clusterNodes));
+	    	
+	    	 JedisPoolConfig poolConfig = new JedisPoolConfig();
+             poolConfig.setMaxTotal(10);
+             poolConfig.setMaxIdle(5);
+             poolConfig.setMinIdle(1);
+             //poolConfig.setTestOnCreate(true);
+             poolConfig.setTestOnBorrow(true);
+             poolConfig.setTestOnReturn(true);
+             poolConfig.setTestWhileIdle(true);
+             poolConfig.setMaxWaitMillis(10*1000);
+//             poolConfig.set
+	    	
+	      return new JedisConnectionFactory(new RedisClusterConfiguration(clusterNodes), poolConfig);
 	    }
 
 	    @Bean
