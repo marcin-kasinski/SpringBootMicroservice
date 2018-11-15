@@ -33,7 +33,7 @@ public class CacheConfig {
              poolConfig.setMaxTotal(10);
              poolConfig.setMaxIdle(5);
              poolConfig.setMinIdle(1);
-             //poolConfig.setTestOnCreate(true);
+             poolConfig.setTestOnCreate(true);
              poolConfig.setTestOnBorrow(true);
              poolConfig.setTestOnReturn(true);
              poolConfig.setTestWhileIdle(true);
