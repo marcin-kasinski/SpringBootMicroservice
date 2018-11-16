@@ -1,9 +1,11 @@
 package mk;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachingConfigurer;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.interceptor.CacheErrorHandler;
@@ -21,6 +23,11 @@ import redis.clients.jedis.JedisPoolConfig;
 @Configuration
 public class CacheConfig extends CachingConfigurerSupport implements CachingConfigurer {
 
+	@Value("${redis.cluster.nodes}")
+	String clusterNodesProp;
+
+	List<String> clusterNodes = new ArrayList<String>(Arrays.asList(clusterNodesProp.split(",")));
+	/*
 	//redis-0.redis-hs.default.svc.cluster.local:6379,redis-1.redis-hs.default.svc.cluster.local:6379,redis-2.redis-hs.default.svc.cluster.local:6379,redis-3.redis-hs.default.svc.cluster.local:6379,redis-4.redis-hs.default.svc.cluster.local:6379,redis-5.redis-hs.default.svc.cluster.local:6379
 	List<String> clusterNodes = Arrays.asList("redis-0.redis-hs.default.svc.cluster.local:6379", 
 			"redis-1.redis-hs.default.svc.cluster.local:6379", 
@@ -28,7 +35,7 @@ public class CacheConfig extends CachingConfigurerSupport implements CachingConf
 			"redis-3.redis-hs.default.svc.cluster.local:6379", 
 			"redis-4.redis-hs.default.svc.cluster.local:6379", 
 			"redis-5.redis-hs.default.svc.cluster.local:6379");
-
+*/
 	    @Bean
 	    RedisConnectionFactory redisConnectionFactory() {
 	    	
@@ -41,6 +48,10 @@ public class CacheConfig extends CachingConfigurerSupport implements CachingConf
              poolConfig.setTestOnReturn(true);
              poolConfig.setTestWhileIdle(true);
              poolConfig.setMaxWaitMillis(10*1000);
+             poolConfig.setEvictorShutdownTimeoutMillis(10*1000);
+             poolConfig.setMinEvictableIdleTimeMillis(10*1000);
+             poolConfig.setTimeBetweenEvictionRunsMillis(10*1000);
+             poolConfig.setNumTestsPerEvictionRun(-1);
 //             poolConfig.set
 	    	
 	      return new JedisConnectionFactory(new RedisClusterConfiguration(clusterNodes), poolConfig);
