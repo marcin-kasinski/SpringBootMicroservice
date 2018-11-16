@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachingConfigurer;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -23,10 +26,11 @@ import redis.clients.jedis.JedisPoolConfig;
 @Configuration
 public class CacheConfig extends CachingConfigurerSupport implements CachingConfigurer {
 
-	@Value("${redis.cluster.nodes}")
+	private static Logger log = LoggerFactory.getLogger(CacheConfig.class);
+	
+	@Value("${spring.redis.cluster.nodes}")
 	String clusterNodesProp;
 
-	List<String> clusterNodes = new ArrayList<String>(Arrays.asList(clusterNodesProp.split(",")));
 	/*
 	//redis-0.redis-hs.default.svc.cluster.local:6379,redis-1.redis-hs.default.svc.cluster.local:6379,redis-2.redis-hs.default.svc.cluster.local:6379,redis-3.redis-hs.default.svc.cluster.local:6379,redis-4.redis-hs.default.svc.cluster.local:6379,redis-5.redis-hs.default.svc.cluster.local:6379
 	List<String> clusterNodes = Arrays.asList("redis-0.redis-hs.default.svc.cluster.local:6379", 
@@ -53,7 +57,12 @@ public class CacheConfig extends CachingConfigurerSupport implements CachingConf
              poolConfig.setTimeBetweenEvictionRunsMillis(10*1000);
              poolConfig.setNumTestsPerEvictionRun(-1);
 //             poolConfig.set
-	    	
+
+             log.info("clusterNodes:"+clusterNodesProp);
+        	
+        	List<String> clusterNodes = new ArrayList<String>(Arrays.asList(clusterNodesProp.split(",")));
+
+             
 	      return new JedisConnectionFactory(new RedisClusterConfiguration(clusterNodes), poolConfig);
 	    }
 

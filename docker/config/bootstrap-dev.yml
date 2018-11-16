@@ -19,9 +19,10 @@ management.metrics.export.graphite:
 #    uri: http://monitoring-influxdb:30080
 spring:
     cache.type: redis
-    redis.host: redis-0.redis-hs.default.svc.cluster.local
-    redis.port: 6379
-    cache.cache-names: cache1,cache2
+    #redis.host: redis-0.redis-hs.default.svc.cluster.local
+    #redis.port: 6379
+    redis.cluster.nodes: "redis-0.redis-hs.default.svc.cluster.local:6379,redis-1.redis-hs.default.svc.cluster.local:6379,redis-2.redis-hs.default.svc.cluster.local:6379,redis-3.redis-hs.default.svc.cluster.local:6379,redis-4.redis-hs.default.svc.cluster.local:6379,redis-5.redis-hs.default.svc.cluster.local:6379"
+    #cache.cache-names: cache1,cache2
     cache.redis.time-to-live: 60000
     application:
         name: SpringBootMicroservice
