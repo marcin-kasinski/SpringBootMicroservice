@@ -348,6 +348,8 @@ public class MicroserviceController {
 	@Cacheable(value= "getByEmail",  key = "#email")
 	public User getByEmail(@RequestParam(value = "email", defaultValue = ".") String email,
 			@RequestHeader HttpHeaders headers) {
+		log.info("getByEmail START");
+
 		processRequest();
 		
 		
