@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
@@ -312,7 +313,7 @@ public class MicroserviceController {
 	public MongoUser addUser(@RequestBody MongoUser user,@RequestHeader HttpHeaders headers)
 	{
 
-		log.info("addUser START");
+		log.info("addUser START: version :"+System.getenv("VERSION_NAME"));
 		
 		Set<String> keys = headers.keySet();
 		System.out.println("Headers start");
