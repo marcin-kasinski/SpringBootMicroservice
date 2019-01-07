@@ -309,10 +309,29 @@ public class MicroserviceController {
 	@HystrixCommand(commandKey = "addUser", fallbackMethod = "addUser_fallbackMethod")
 	@RequestMapping(method = RequestMethod.POST, value = "/adduser",produces = MediaType.APPLICATION_JSON_VALUE)
 	//@PostMapping("/adduser")
-	public MongoUser addUser(@RequestBody MongoUser user)
+	public MongoUser addUser(@RequestBody MongoUser user,@RequestHeader HttpHeaders headers)
 	{
 
 		log.info("addUser START");
+		
+		Set<String> keys = headers.keySet();
+		System.out.println("Headers start");
+
+		for (String key : keys) {
+
+			List<String> value = headers.get(key);
+
+			int size = value.size();
+			
+			for (int i=0;i<size;i++) 			System.out.println(key + " " +value.get(i));
+
+
+
+		}
+		
+		
+		System.out.println("Headers end");
+
 
 		log.info("executing addUser "+user);
 
