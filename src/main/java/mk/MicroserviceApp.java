@@ -84,7 +84,7 @@ public class MicroserviceApp {
 	public static void main(String[] args) {
 
 
-		System.out.println("MicroserviceApp ver 27.12.2018");
+		System.out.println("MicroserviceApp ver 09.01.2019");
 
 		
 	System.out.println("ENV variables");
