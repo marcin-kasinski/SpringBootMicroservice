@@ -12,13 +12,13 @@ ENV FILEBEAT_VERSION=filebeat-6.4.2-amd64.deb
 
 RUN mkdir /usr/src/myapp \
 && mkdir /usr/src/myapp/logs \
-&& touch /usr/src/myapp/logs/application.log \
-&& curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/${FILEBEAT_VERSION} \
-&& dpkg -i ${FILEBEAT_VERSION} \
-  && rm ${FILEBEAT_VERSION}
+&& touch /usr/src/myapp/logs/application.log
+#&& curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/${FILEBEAT_VERSION} \
+#&& dpkg -i ${FILEBEAT_VERSION} \
+#  && rm ${FILEBEAT_VERSION}
 
 # configure Filebeat
-ADD filebeatstokafka.yml /etc/filebeat/filebeat.yml
+#ADD filebeatstokafka.yml /etc/filebeat/filebeat.yml
 #ADD filebeatstologstash.yml /etc/filebeat/filebeat.yml
 #ADD filebeatstoelasticsearch.yml /etc/filebeat/filebeat.yml
 
