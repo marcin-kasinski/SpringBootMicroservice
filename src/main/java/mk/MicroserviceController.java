@@ -359,7 +359,14 @@ public class MicroserviceController {
 		log.info("addUser END");
 		return user;
 	}
-			
+
+	@RequestMapping("/get-by-email2")
+	public User getByEmail2(@RequestParam(value = "email", defaultValue = ".") String email,@RequestHeader HttpHeaders headers) {
+		log.info("getByEmail2 START");
+		User user=getByEmail(email,headers);
+		log.info("getByEmail2 END");
+		return user;		
+	}
 	
 	// http://localhost:8081/api/get-by-email?email=x@x.com
 	// http://springbootmicroservice-cs:9191/api/get-by-email?email=x@x.com
@@ -371,8 +378,7 @@ public class MicroserviceController {
 		log.info("getByEmail START");
 
 		processRequest();
-		
-		
+
 		long start1 = System.currentTimeMillis();
 		long start2 = System.nanoTime();
 		
