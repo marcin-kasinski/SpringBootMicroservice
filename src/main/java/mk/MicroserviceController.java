@@ -364,7 +364,7 @@ public class MicroserviceController {
 	}
 
 	
-	User getEmail(String email)
+	User getEmail(String email) throws Exception
 	{
 		processRequest();
 
@@ -467,9 +467,60 @@ public class MicroserviceController {
 
 		  return Mono.fromCallable(() -> {
 
-				log.info("getByEmail2 START");
-				User user=getEmail(email);
+			  log.info("getByEmail2 START");
+				User user = null;
+				try {
+					user = getEmail(email);
+				} catch (Exception e) {
+					log.error("getByEmail2 error :"+e);
+				}
 				log.info("getByEmail2 END");
+				
+				return user;
+
+		    });
+
+//		return user;		
+	}
+	
+	@RequestMapping("/get-by-email3")
+	public Mono<User> getByEmail3(@RequestParam(value = "email", defaultValue = ".") String email,@RequestHeader HttpHeaders headers) {
+
+		  return Mono.fromCallable(() -> {
+
+			  log.info("getByEmail3 START");
+				User user = null;
+				try {
+					user = getEmail(email);
+				} catch (Exception e) {
+					log.error("getByEmail3 error :"+e);
+				}
+				log.info("getByEmail3 END");
+				
+				return user;
+
+		    })
+				  .subscribeOn(Schedulers.elastic())
+				  .publishOn(Schedulers.parallel())
+				  
+				  ;
+
+//		return user;		
+	}
+	
+	@RequestMapping("/get-by-email4")
+	public Mono<User> getByEmail4(@RequestParam(value = "email", defaultValue = ".") String email,@RequestHeader HttpHeaders headers) {
+
+		  return Mono.fromCallable(() -> {
+
+			  log.info("getByEmail4 START");
+				User user = null;
+				try {
+					user = getEmail(email);
+				} catch (Exception e) {
+					log.error("getByEmail4 error :"+e);
+				}
+				log.info("getByEmail4 END");
 				
 				return user;
 
@@ -486,9 +537,16 @@ public class MicroserviceController {
 	public User getByEmail(@RequestParam(value = "email", defaultValue = ".") String email,
 			@RequestHeader HttpHeaders headers) {
 		log.info("getByEmail START");
+		User user = null;
+		try {
+			user = getEmail(email);
+		} catch (Exception e) {
+			log.error("getByEmail error :"+e);
+		}
+		log.info("getByEmail END");
+		
+		return user;
 
-
-		return getEmail(email);
 	}
 
 	@RequestMapping("/test")
@@ -572,7 +630,12 @@ public class MicroserviceController {
 		public User getByEmailNoCache(@RequestParam(value = "email", defaultValue = ".") String email,
 				@RequestHeader HttpHeaders headers) {
 			log.info("getByEmailNoCache START");
-			User user=getEmail(email);
+			User user = null;
+			try {
+				user = getEmail(email);
+			} catch (Exception e) {
+				log.error("getByEmailNoCache error :"+e);
+			}
 			log.info("getByEmailNoCache END");
 			
 			return user;
