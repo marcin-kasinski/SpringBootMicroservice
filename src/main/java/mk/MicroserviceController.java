@@ -374,7 +374,7 @@ public class MicroserviceController {
 				String threadName=Thread.currentThread().getName() ;
 		    	System.out.println("threadName "+threadName);
 
-		        return getByEmail(email,headers);
+		        return getByEmailNoCache(email,headers);
 		    }).subscribeOn(Schedulers.elastic());
 		
 		
@@ -577,5 +577,127 @@ public class MicroserviceController {
 		}
 
 	}
+
+
+	// http://localhost:8081/api/get-by-email?email=x@x.com
+		// http://springbootmicroservice-cs:9191/api/get-by-email?email=x@x.com
+		@RequestMapping("/get-by-email-nocache")
+		public User getByEmailNoCache(@RequestParam(value = "email", defaultValue = ".") String email,
+				@RequestHeader HttpHeaders headers) {
+			log.info("getByEmailNoCache START");
+	
+			processRequest();
+	
+			long start1 = System.currentTimeMillis();
+			long start2 = System.nanoTime();
+			
+			sampleBean.handleMessage("XXX");
+			
+		
+			// ------------------------ custom counter ------------------------//
+	//		Counter mkCustomCounter = metricRegistry.counter("mkCustomCounter");
+	//		mkCustomCounter.inc();
+			// ------------------------ custom counter ------------------------//
+	
+			Timer timer = registry.timer("endpoint.MK22get-by-email.MK33_execution_time");
+	//		Timer timer = registry.timer("endpoint.MKget-by-email.MK_execution_time");
+			
+			
+	//		LongTaskTimer longTaskTimer = LongTaskTimer .builder("endpoint.MKget-by-email.MK_execution_time") .register(registry);
+	
+			User user;
+	
+			log.info("Microservice get-by-email executed ["+email+"]");
+	
+			Set<String> keys = headers.keySet();
+			System.out.println("Headers start");
+	
+			for (String key : keys) {
+	
+				List<String> value = headers.get(key);
+	
+				int size = value.size();
+				
+				for (int i=0;i<size;i++) 			System.out.println(key + " " +value.get(i));
+	
+	
+	
+			}
+			
+			
+			System.out.println("Headers end");
+	
+	
+	//		System.out.println("/get-by-email " + email);
+	
+			String userId = "";
+			try {
+				//user = mysqlUserRepository.findByEmail(email);
+				user = mysqlUserService.findByEmail(email);
+	
+				
+				Long longobj = new Long(user.getId());
+				
+				Gauge gauge = Gauge  .builder("endpoint.MKget-by-email.MK_gauge", longobj,Long::longValue)
+						.tags("userid",user.getId().toString())
+						.tags("tag1", "1111111")
+						.tags("tag2", "22222222")
+						.tags("tagx", "xxxxxxxx")
+						
+						  .register(registry);
+				
+				
+				
+				
+				log.info("getId " + user.getId());
+				log.info("getName " + user.getName());
+	//			System.out.println("getEmail " + user.getEmail());
+	
+				userId = String.valueOf(user.getId());
+	
+	//			this.counterService.increment("get-by-email.MKtxnCount");
+	//			this.counterService.increment("get-by-email.MKtxnCount2");
+	
+				int randomNum = ThreadLocalRandom.current().nextInt(0, 300 + 1);
+	//			System.out.println("get-by-email.MKcustomgauge generated " + randomNum);
+	//			System.out.println("get-by-email.MKcustomgauge2 generated " + randomNum * 2);
+	
+	//			this.gaugeService.submit("get-by-email.MKcustomgauge", randomNum);
+	//			this.gaugeService.submit("get-by-email.MKcustomgauge2", randomNum * 2);
+	
+			} catch (Exception ex) {
+	
+				System.out.println("error " + ex.getMessage());
+				System.out.println("error " + ex.getLocalizedMessage());
+	
+				return null;
+			} finally {
+		//		long timeElapsed = longTaskTimer.stop(currentTaskId.stop());
+				
+	
+	
+				long stop1 = System.currentTimeMillis();
+			    long diff1 = stop1 - start1;
+	
+				long stop2 = System.nanoTime();
+				long diff2 = stop2 - start2;
+	
+				System.out.println("\nstart1="+start1+"\nstop1 ="+stop1+"\nDiff1="+diff1);
+				System.out.println("\nstart2="+start2+"\nstop2 ="+stop2+"\nDiff2="+diff2);
+				
+				System.out.println("A");
+				if (timer==null) 			System.out.println("Timer is NULL");
+	
+				if (timer!=null) 		timer.record(diff1,  TimeUnit.MILLISECONDS);
+				System.out.println("B");
+	
+			}
+			
+			System.out.println("Microservice get-by-email end with user "+user);
+	
+			
+			// return "The user id is: " + userId;
+			return user;
+		}
 
 }
