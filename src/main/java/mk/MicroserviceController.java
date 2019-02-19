@@ -372,7 +372,7 @@ public class MicroserviceController {
 		long start2 = System.nanoTime();
 		
 		String threadName=Thread.currentThread().getName() ;
-    	System.out.println("getEmail threadName "+threadName);
+		log.info("->->->->getEmail threadName "+threadName);
 
 		
 		sampleBean.handleMessage("XXX");
