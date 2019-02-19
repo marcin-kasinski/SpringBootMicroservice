@@ -48,6 +48,9 @@ import io.micrometer.core.instrument.Timer;
 import mk.dao.MongoUserRepository;
 import mk.dao.MysqlUserRepository;
 
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
+
 //2.0.1
 //import io.micrometer.core.instrument.Counter;
 //import io.micrometer.core.instrument.Metrics;
@@ -361,11 +364,21 @@ public class MicroserviceController {
 	}
 
 	@RequestMapping("/get-by-email2")
-	public User getByEmail2(@RequestParam(value = "email", defaultValue = ".") String email,@RequestHeader HttpHeaders headers) {
-		log.info("getByEmail2 START");
-		User user=getByEmail(email,headers);
-		log.info("getByEmail2 END");
-		return user;		
+	public Mono<User> getByEmail2(@RequestParam(value = "email", defaultValue = ".") String email,@RequestHeader HttpHeaders headers) {
+
+		
+		  return Mono.fromCallable(() -> {
+
+				log.info("getByEmail2 START");
+
+				String threadName=Thread.currentThread().getName() ;
+		    	System.out.println("threadName "+threadName);
+
+		        return getByEmail(email,headers);
+		    }).subscribeOn(Schedulers.elastic());
+		
+		
+//		return user;		
 	}
 	
 	// http://localhost:8081/api/get-by-email?email=x@x.com
