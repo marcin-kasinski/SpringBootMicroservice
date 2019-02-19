@@ -82,7 +82,6 @@ Fishtown.BUILD-SNAPSHOT
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version>
 				<executions>
 					<execution>
 						<id>scp-to-remote</id>
@@ -250,7 +249,11 @@ Fishtown.BUILD-SNAPSHOT
 </dependency>
 
 
-
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-sleuth-reactor</artifactId>
+    <version>1.3.5.RELEASE</version>
+</dependency>
 
 	<dependency>
         <groupId>org.springframework.cloud</groupId>
