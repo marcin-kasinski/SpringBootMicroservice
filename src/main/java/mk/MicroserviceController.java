@@ -24,6 +24,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 //import org.springframework.boot.actuate.metrics.GaugeService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -535,6 +536,7 @@ public class MicroserviceController {
 	
 	// http://localhost:8081/api/get-by-email?email=x@x.com
 	// http://springbootmicroservice-cs:9191/api/get-by-email?email=x@x.com
+    @CrossOrigin(origins = "*")	
 	@RequestMapping("/get-by-email")
 	// @ResponseBody
 	@Cacheable(value= "getByEmail",  key = "#email")

@@ -41,14 +41,11 @@ import mk.service.MysqlUserService;
 import mk.service.MysqlUserServiceImpl;
 import mk.service.UserNumService;
 
-@RunWith(SpringRunner.class)
-//@ContextConfiguration(initializers = TestConfigInitailizer.class)
-@WebMvcTest(MicroserviceController.class)
-//@SpringBootTest
-//@DataJpaTest
+//@RunWith(SpringRunner.class)
+//@WebMvcTest(MicroserviceController.class)
 public class WebControllerTest {
 	
-
+/*
 	   @TestConfiguration
 	    static class EmployeeServiceImplTestContextConfiguration {
 	  
@@ -150,5 +147,5 @@ public class WebControllerTest {
 //	@Configuration
 	// @ComponentScan(basePackageClasses = { Microservice.class })
 	// public static class TestConf {}
-
+*/
 }
