@@ -255,6 +255,8 @@ Fishtown.BUILD-SNAPSHOT
     <version>1.3.5.RELEASE</version>
 </dependency>
  -->
+
+<!--  
 	<dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-starter-sleuth</artifactId>
@@ -264,6 +266,7 @@ Fishtown.BUILD-SNAPSHOT
 <groupId>org.springframework.cloud</groupId>
 <artifactId>spring-cloud-sleuth-zipkin</artifactId>
 </dependency>
+ -->
 <!-- 
 <dependency>
   <groupId>io.micrometer</groupId>
