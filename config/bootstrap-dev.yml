@@ -6,6 +6,7 @@ logging:
                 graphite: DEBUG
 server:
     port: 9191
+    tomcat.max-threads: 8
 #    influxdbeserver: monitoring-influxdb.kube-system.svc.cluster.local                
     influxdbeserver: monitoring-influxdb
 management.metrics.export.graphite:

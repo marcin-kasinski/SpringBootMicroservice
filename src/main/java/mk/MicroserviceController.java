@@ -8,6 +8,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
@@ -16,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -24,6 +28,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 //import org.springframework.boot.actuate.metrics.GaugeService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +43,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpServerErrorException;
 
+import com.mongodb.connection.AsyncCompletionHandler;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
@@ -77,7 +83,8 @@ public class MicroserviceController {
 
 	public MicroserviceController() {
 		super();
-
+		//executor = Executors.newFixedThreadPool(5000);
+		
 		/*
 		Counter counter = Counter
 				  .builder("instance")
@@ -514,12 +521,15 @@ public class MicroserviceController {
 //		return user;		
 	}
 	
+//	private final ExecutorService executor ;
+	
+	
 	@RequestMapping("/get-by-email4")
 	public Mono<User> getByEmail4(@RequestParam(value = "email", defaultValue = ".") String email,@RequestHeader HttpHeaders headers) {
 
 		  return Mono.fromCallable(() -> {
 
-			  log.info("getByEmail4 START");
+				log.info("getByEmail4 START");
 				User user = null;
 				try {
 					user = getEmail(email);
@@ -531,6 +541,7 @@ public class MicroserviceController {
 				return user;
 
 		    }).subscribeOn(Schedulers.elastic());
+//    }).subscribeOn(Schedulers.fromExecutor(executor));
 
 //		return user;		
 	}
@@ -648,5 +659,7 @@ public class MicroserviceController {
 			return user;
 
 		}
+
+
 
 }
