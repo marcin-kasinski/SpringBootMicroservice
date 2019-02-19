@@ -1,10 +1,15 @@
+reactor.netty.ioWorkerCount: 200
 logging:
     file: logs/application.log
     level:
         io:
             micrometer:
                 graphite: DEBUG
+server.jetty.acceptors: 100 # Number of acceptor threads to use.
+#server.jetty.max-http-post-size: 0 # Maximum size in bytes of the HTTP post or put content.
+server.jetty.selectors: 40 # Number of selector threads to use.
 server:
+
     port: 9191
     tomcat.max-threads: 8
 #    influxdbeserver: monitoring-influxdb.kube-system.svc.cluster.local                
