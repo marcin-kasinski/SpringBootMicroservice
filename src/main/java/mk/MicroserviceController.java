@@ -372,10 +372,11 @@ public class MicroserviceController {
 		long start1 = System.currentTimeMillis();
 		long start2 = System.nanoTime();
 		
+		Thread.sleep(1000);
 		String threadName=Thread.currentThread().getName() ;
 		log.info("->->->->getEmail threadName "+threadName);
-
 		
+		if (1==1) return new User();
 		sampleBean.handleMessage("XXX");
 		
 	
