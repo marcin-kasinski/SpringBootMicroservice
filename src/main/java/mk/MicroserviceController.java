@@ -465,22 +465,16 @@ public class MicroserviceController {
 	@RequestMapping("/get-by-email2")
 	public Mono<User> getByEmail2(@RequestParam(value = "email", defaultValue = ".") String email,@RequestHeader HttpHeaders headers) {
 
-		
 		  return Mono.fromCallable(() -> {
 
 				log.info("getByEmail2 START");
+				User user=getEmail(email);
+				log.info("getByEmail2 END");
+				
+				return user;
 
-//				String threadName=Thread.currentThread().getName() ;
-//		    	System.out.println("threadName "+threadName);
-
-//		    	User user=getEmail(email);
-		    	
-//				log.info("getByEmail2 got user "+user.getEmail()+" "+user.getName());
-//		        return user;
-		        return getEmail(email);
 		    }).subscribeOn(Schedulers.elastic());
-		
-		
+
 //		return user;		
 	}
 	
@@ -578,8 +572,10 @@ public class MicroserviceController {
 		public User getByEmailNoCache(@RequestParam(value = "email", defaultValue = ".") String email,
 				@RequestHeader HttpHeaders headers) {
 			log.info("getByEmailNoCache START");
-	
-			return getEmail(email);
+			User user=getEmail(email);
+			log.info("getByEmailNoCache END");
+			
+			return user;
 
 		}
 
