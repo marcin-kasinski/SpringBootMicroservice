@@ -470,15 +470,14 @@ public class MicroserviceController {
 
 				log.info("getByEmail2 START");
 
-				String threadName=Thread.currentThread().getName() ;
-		    	System.out.println("threadName "+threadName);
+//				String threadName=Thread.currentThread().getName() ;
+//		    	System.out.println("threadName "+threadName);
 
-		    	User user=getEmail(email);
+//		    	User user=getEmail(email);
 		    	
-				log.info("getByEmail2 got user "+user.getEmail()+" "+user.getName());
-		    	
-		    	
-		        return user;
+//				log.info("getByEmail2 got user "+user.getEmail()+" "+user.getName());
+//		        return user;
+		        return getEmail(email);
 		    }).subscribeOn(Schedulers.elastic());
 		
 		
