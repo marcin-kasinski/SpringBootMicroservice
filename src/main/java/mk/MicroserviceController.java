@@ -379,14 +379,13 @@ public class MicroserviceController {
 		long start1 = System.currentTimeMillis();
 		long start2 = System.nanoTime();
 		
-		Thread.sleep(1000);
+//		Thread.sleep(1000);
 		String threadName=Thread.currentThread().getName() ;
 		log.info("->->->->getEmail threadName "+threadName);
 		
-		if (1==1) return new User();
-		sampleBean.handleMessage("XXX");
-		
-	
+//		if (1==1) return new User();
+//		sampleBean.handleMessage("XXX");
+
 		// ------------------------ custom counter ------------------------//
 //		Counter mkCustomCounter = metricRegistry.counter("mkCustomCounter");
 //		mkCustomCounter.inc();
@@ -476,6 +475,7 @@ public class MicroserviceController {
 	}
 	
 	@RequestMapping("/get-by-email2")
+	@CrossOrigin(origins = "*")
 	public Mono<User> getByEmail2(@RequestParam(value = "email", defaultValue = ".") String email,@RequestHeader HttpHeaders headers) {
 
 		  return Mono.fromCallable(() -> {
@@ -497,6 +497,7 @@ public class MicroserviceController {
 	}
 	
 	@RequestMapping("/get-by-email3")
+	@CrossOrigin(origins = "*")
 	public Mono<User> getByEmail3(@RequestParam(value = "email", defaultValue = ".") String email,@RequestHeader HttpHeaders headers) {
 
 		  return Mono.fromCallable(() -> {
@@ -525,6 +526,7 @@ public class MicroserviceController {
 	
 	
 	@RequestMapping("/get-by-email4")
+	@CrossOrigin(origins = "*")
 	public Mono<User> getByEmail4(@RequestParam(value = "email", defaultValue = ".") String email,@RequestHeader HttpHeaders headers) {
 
 		  return Mono.fromCallable(() -> {
@@ -548,9 +550,9 @@ public class MicroserviceController {
 	
 	// http://localhost:8081/api/get-by-email?email=x@x.com
 	// http://springbootmicroservice-cs:9191/api/get-by-email?email=x@x.com
-    @CrossOrigin(origins = "*")	
 	@RequestMapping("/get-by-email")
 	// @ResponseBody
+    @CrossOrigin(origins = "*")
 	@Cacheable(value= "getByEmail",  key = "#email")
 	public User getByEmail(@RequestParam(value = "email", defaultValue = ".") String email,
 			@RequestHeader HttpHeaders headers) {
