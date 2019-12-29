@@ -118,8 +118,8 @@ public class MicroserviceController {
 	@Autowired
 	private MysqlUserService mysqlUserService;
 
-	@Autowired
-	private MongoUserRepository mongoUserRepository;
+//	@Autowired
+//	private MongoUserRepository mongoUserRepository;
 /*
 	@Autowired
 	CounterService counterService;
