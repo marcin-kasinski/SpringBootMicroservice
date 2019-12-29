@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpServerErrorException;
 
-import com.mongodb.connection.AsyncCompletionHandler;
+//import com.mongodb.connection.AsyncCompletionHandler;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
@@ -265,7 +265,8 @@ public class MicroserviceController {
 	{
 		return 	"# TYPE qps gauge\nqps "+String.valueOf(mkrrequestsperminute);
 	}
-	
+
+	/*
 	// http://localhost:9191/api/getMongoUserByEmail?email=marcin2@marcin.com
 	@RequestMapping("/getMongoUserByEmail")	
 	public MongoUser getMongoUserByEmail(@RequestParam(value = "email", defaultValue = ".") String email,
@@ -289,7 +290,7 @@ public class MicroserviceController {
 		
 		return user;
 	}
-
+*/
 	//http://localhost:9191/api/adduser
 	
 	
@@ -317,7 +318,7 @@ public class MicroserviceController {
     //	     @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "1000") ,
     // 	     @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "60000") 
     //	     })	
-	
+	/*
 	@HystrixCommand(commandKey = "addUser", fallbackMethod = "addUser_fallbackMethod")
 	@RequestMapping(method = RequestMethod.POST, value = "/adduser",produces = MediaType.APPLICATION_JSON_VALUE)
 	//@PostMapping("/adduser")
@@ -371,7 +372,8 @@ public class MicroserviceController {
 		return user;
 	}
 
-	
+	*/
+
 	User getEmail(String email) throws Exception
 	{
 		processRequest();

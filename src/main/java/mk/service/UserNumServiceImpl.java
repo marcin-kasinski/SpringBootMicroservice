@@ -1,5 +1,5 @@
 package mk.service;
-
+/*
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +21,11 @@ public class UserNumServiceImpl implements UserNumService  {
 	    userNumRepository.save(next);
 	    return next.seq;
 	  }
+}
+
+
+ */
+
+
+public class UserNumServiceImpl {
 }

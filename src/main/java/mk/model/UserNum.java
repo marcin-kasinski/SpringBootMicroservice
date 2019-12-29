@@ -1,5 +1,5 @@
 package mk.model;
-
+/*
 import javax.persistence.Id;
 
 import org.bson.types.ObjectId;
@@ -20,4 +20,9 @@ public class UserNum {
 	    this.seq = seq;
 	  }
 
+}
+*/
+
+
+public class UserNum {
 }

@@ -1,5 +1,5 @@
 package mk.dao;
-
+/*
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -13,13 +13,14 @@ public interface MongoUserRepository extends MongoRepository<MongoUser, Long>
 
 //	public interface UserRepository {
 
-	 /**
-	   * This method will find an User instance in the database by its email.
-	   * Note that this method is not implemented and its working code will be
-	   * automagically generated from its signature by Spring Data JPA.
-	   */
 	  public MongoUser findByEmail(String email);
 	  public List<MongoUser> findAllUsersByEmail(String email);
 
 	
+}
+*/
+
+
+
+public class MongoUserRepository {
 }
