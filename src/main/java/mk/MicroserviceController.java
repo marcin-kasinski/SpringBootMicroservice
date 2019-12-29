@@ -97,8 +97,8 @@ public class MicroserviceController {
 				  	
 				  	}
 
-	@Autowired
-	private UserNumService userNumService;
+	//@Autowired
+	//private UserNumService userNumService;
 	
 	@Autowired
 	private SampleMetricBean sampleBean;
