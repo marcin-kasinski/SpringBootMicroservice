@@ -7,50 +7,73 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+import static org.mockito.Mockito.*;
 import mk.model.User;
+import mk.service.MysqlUserService;
 import mk.service.MysqlUserServiceImpl;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.stereotype.Service;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.List;
+
 @SpringBootTest
+//@RunWith(SpringJUnit4ClassRunner.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test") // Like this
-public class MKTest {
+public class ControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     //@Autowired
     //MysqlUserServiceImpl mysqlUserServiceImpl;
-    @Mock
-    MysqlUserServiceImpl mysqlUserServiceImpl;
+    @MockBean
+    //MysqlUserServiceImpl mysqlUserServiceImpl;
+    MysqlUserService mysqlUserService;
 
     @Test
     public void shouldReturnDefaultMessage() throws Exception {
 //        this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
 //                .andExpect(content().string(containsString("Hello, World")));
 
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.println("adding user");
 
-        /*
         User user = new User();
         user.setName("X");
         user.setEmail("x@x.com");
-        mysqlUserServiceImpl.addUser(user);
-         */
+        //mysqlUserServiceImpl.addUser(user);
 
-        System.out.println(this.mockMvc.toString());
+        when(mysqlUserService.findByEmail("x@x.com")         ).thenReturn(user);
+
+
+
+        System.out.println("user added");
+
+        System.out.println("finding users");
+
+        //List<User> users=mysqlUserServiceImpl.findAll();
+        System.out.println("users found");
+
+
+
+        //System.out.println(this.mockMvc.toString());
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        //System.out.println("users size: "+users.size());
         //System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "+content().str);
 
         //this.mockMvc.perform(get("/api/get-by-email?email=x@x.com")).andDo(print());
+        //MvcResult result = this.mockMvc.perform(get("/api/get-by-email?email=x@x.com")).andDo(print()).andReturn();
         MvcResult result = this.mockMvc.perform(get("/api/get-by-email?email=x@x.com")).andDo(print()).andReturn();
         String content = result.getResponse().getContentAsString();
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Content: "+content);

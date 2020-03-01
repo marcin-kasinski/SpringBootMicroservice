@@ -36,4 +36,10 @@ public class MysqlUserServiceImpl implements MysqlUserService{
 		return mysqlUserRepository.findAllUsersByEmail(email);
 	}
 
+	@Override
+	public List<User> findAll() {
+
+		return mysqlUserRepository.findAll();
+	}
+
 }

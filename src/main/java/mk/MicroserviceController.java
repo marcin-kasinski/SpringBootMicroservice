@@ -116,7 +116,7 @@ public class MicroserviceController {
 //	private MysqlUserRepository mysqlUserRepository;
 
 	@Autowired
-	private MysqlUserService mysqlUserService;
+	MysqlUserService mysqlUserService;
 
 //	@Autowired
 //	private MongoUserRepository mongoUserRepository;
@@ -562,6 +562,8 @@ public class MicroserviceController {
 		User user = null;
 		try {
 			user = getEmail(email);
+			log.info("return user "+user);
+
 		} catch (Exception e) {
 			log.error("getByEmail error :"+e);
 		}

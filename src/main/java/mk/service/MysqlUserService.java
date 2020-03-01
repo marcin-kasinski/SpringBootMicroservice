@@ -8,4 +8,5 @@ public interface MysqlUserService {
 	public User addUser(User user);
 	public User findByEmail(String email);
 	public List<User> findAllUsersByEmail(String email);
+	public List<User> findAll();
 }
