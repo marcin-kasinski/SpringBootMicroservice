@@ -3,12 +3,15 @@ package mk.dao;
 import java.util.List;
 
 import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
 import mk.model.User;
 
 @Transactional
-public interface MysqlUserRepository extends CrudRepository<User, Long>{
+//public interface MysqlUserRepository extends CrudRepository<User, Long>{
+public interface MysqlUserRepository extends JpaRepository<User, Long> {
 
 //	public interface UserRepository {
 
@@ -17,7 +20,8 @@ public interface MysqlUserRepository extends CrudRepository<User, Long>{
 	   * Note that this method is not implemented and its working code will be
 	   * automagically generated from its signature by Spring Data JPA.
 	   */
-	  public User findByEmail(String email);
+	 public User findByEmail(String email);
+	//public User findByName(String name);
 	  public List<User> findAllUsersByEmail(String email);
 
 	

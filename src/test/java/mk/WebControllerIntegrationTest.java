@@ -5,8 +5,8 @@ package mk;
 //import static org.junit.Assert.assertThat;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
@@ -15,10 +15,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import mk.dao.MysqlUserRepository;
 import mk.model.User;
 
-@RunWith(SpringRunner.class)
-@DataJpaTest
+//@RunWith(SpringRunner.class)
+//@DataJpaTest
 public class WebControllerIntegrationTest {
-
+/*
 	@Autowired
 	private TestEntityManager entityManager;
 
@@ -50,5 +50,5 @@ public class WebControllerIntegrationTest {
 		System.out.println(methodName + " test executed");
 
 	}
-
+*/
 }

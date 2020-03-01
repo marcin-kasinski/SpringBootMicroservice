@@ -1,0 +1,101 @@
+reactor.netty.ioWorkerCount: 200
+logging:
+    file: logs/application.log
+    level:
+        io:
+            micrometer:
+                graphite: DEBUG
+server.jetty.acceptors: 100 # Number of acceptor threads to use.
+#server.jetty.max-http-post-size: 0 # Maximum size in bytes of the HTTP post or put content.
+server.jetty.selectors: 40 # Number of selector threads to use.
+server:
+
+    port: 9191
+    tomcat.max-threads: 8
+#    influxdbeserver: monitoring-influxdb.kube-system.svc.cluster.local                
+    influxdbeserver: monitoring-influxdb
+management.metrics.export.graphite:
+    host: 192.168.1.12
+#                 port: 2003 
+    port: 30003
+    protocol: Plaintext
+    enabled: true
+    step: 10s    
+#management.metrics.export.influx:
+#    uri: http://monitoring-influxdb:30080
+spring:
+    cache.type: redis
+    #redis.host: redis-0.redis-hs.default.svc.cluster.local
+    #redis.port: 6379
+    redis.cluster.nodes: "localhost:6370"
+    #cache.cache-names: cache1,cache2
+    cache.redis.time-to-live: 60000
+    application:
+        name: SpringBootMicroservice
+        
+    cloud:
+        consul:
+            discovery:
+                preferIpAddress: true
+                instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+            port: 8500        
+        config:
+            enabled: true
+            data-key: props
+            prefix: config
+            format: PROPERTIES        
+#spring.jpa.hibernate.ddl-auto=create
+    datasource:
+        hikari:
+            connection-test-query: SELECT 1 FROM DUAL
+            minimum-idle: 1
+            maximum-pool-size: 5
+            pool-name: yourPoolName
+            auto-commit: true
+        #url: jdbc:mysql://localhost:3306/test?useUnicode=true;useJDBCCompliantTimezoneShift=true;useLegacyDatetimeCode=false;serverTimezone=UTC
+        url: jdbc:h2:mem:myDb;DB_CLOSE_DELAY=-1
+        driverClassName: org.h2.Driver
+        username: root
+        password: 
+#spring.datasource.driver-class-name=Driver
+    data:
+        mongodb:
+            uri: mongodb://mongo:32017/mkdatabase
+# Allows Hibernate to generate SQL optimized for a particular DBMS
+    jpa:
+        properties:
+            hibernate.dialect: org.hibernate.dialect.H2Dialect
+            hibernate.show_sql: true
+            hibernate.ddl-auto: create
+    rabbitmq:
+        host:tools.local
+        password:guest
+        port:5672
+    zipkin:
+        baseUrl: http://springbootzipkin:30080
+    sleuth:
+        sampler:
+            percentage: 1
+            probability: 1
+endpoints:
+    prometheus:
+        enabled: true 
+management:
+    security:
+        enabled: false
+    endpoint:
+        metrics:
+            enabled: true
+        prometheus:
+            enabled: true 
+    endpoints:
+        web:
+            exposure:
+                include: "info, health, prometheus"
+        metrics:
+            enabled: true
+    metrics:
+        export:
+            prometheus:
+                enabled: true            
+    
