@@ -69,8 +69,8 @@ public class ControllerTest {
         user.setEmail("x@x.com");
         //mysqlUserServiceImpl.addUser(user);
 
-        //when(mysqlUserService.findByEmail("x@x.com")         ).thenReturn(user);
-        doReturn(user).when(mysqlUserService).findByEmail("x@x.com");
+        when(mysqlUserService.findByEmail("x@x.com")         ).thenReturn(user);
+        //doReturn(user).when(mysqlUserService).findByEmail("x@x.com");
         //when(mysqlUserService.findByEmail("x@x.com")         ).thenReturn(user);
         //mysqlUserService.
 
