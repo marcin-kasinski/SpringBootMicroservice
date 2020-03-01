@@ -8,27 +8,38 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import static org.mockito.Mockito.*;
+
+import io.micrometer.core.instrument.MeterRegistry;
+import mk.metrics.SampleMetricBean;
 import mk.model.User;
 import mk.service.MysqlUserService;
 import mk.service.MysqlUserServiceImpl;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.stereotype.Service;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.util.List;
 
+/*
 @SpringBootTest
 //@RunWith(SpringJUnit4ClassRunner.class)
 @AutoConfigureMockMvc
+*/
+
+@RunWith(SpringRunner.class)
+@WebMvcTest(MicroserviceController.class)
+
 @ActiveProfiles("test") // Like this
 public class ControllerTest {
 
@@ -38,8 +49,11 @@ public class ControllerTest {
     //@Autowired
     //MysqlUserServiceImpl mysqlUserServiceImpl;
     @MockBean
-    //MysqlUserServiceImpl mysqlUserServiceImpl;
     MysqlUserService mysqlUserService;
+    @MockBean
+    SampleMetricBean sampleBean;
+    @MockBean
+    MeterRegistry registry;
 
     @Test
     public void shouldReturnDefaultMessage() throws Exception {
@@ -51,10 +65,14 @@ public class ControllerTest {
 
         User user = new User();
         user.setName("X");
+        user.setId(1L);
         user.setEmail("x@x.com");
         //mysqlUserServiceImpl.addUser(user);
 
-        when(mysqlUserService.findByEmail("x@x.com")         ).thenReturn(user);
+        //when(mysqlUserService.findByEmail("x@x.com")         ).thenReturn(user);
+        doReturn(user).when(mysqlUserService).findByEmail("x@x.com");
+        //when(mysqlUserService.findByEmail("x@x.com")         ).thenReturn(user);
+        //mysqlUserService.
 
 
 

@@ -101,7 +101,7 @@ public class MicroserviceController {
 	//private UserNumService userNumService;
 	
 	@Autowired
-	private SampleMetricBean sampleBean;
+	SampleMetricBean sampleBean;
 
 	@Autowired
 	MeterRegistry registry;
@@ -409,7 +409,13 @@ public class MicroserviceController {
 		String userId = "";
 		try {
 			//user = mysqlUserRepository.findByEmail(email);
+
+
+			log.info(">>>>>>>>>>>>>>>>>>BEFORE ASKING SERVICE " + email);
+
 			user = mysqlUserService.findByEmail(email);
+			log.info(">>>>>>>>>>>>>>>>>>AFTER ASKING SERVICE " + user);
+			log.info("getId " + user.getId());
 
 			
 			Long longobj = new Long(user.getId());
