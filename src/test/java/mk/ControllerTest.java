@@ -61,7 +61,7 @@ public class ControllerTest {
         user.setName("X");
         user.setId(1L);
         user.setEmail("x@x.com");
-        //mysqlUserServiceImpl.addUser(user);
+        mysqlUserService.addUser(user);
 
         when(mysqlUserService.findByEmail("x@x.com")         ).thenReturn(user);
         //doReturn(user).when(mysqlUserService).findByEmail("x@x.com");
@@ -74,8 +74,8 @@ public class ControllerTest {
 
         System.out.println("finding users");
 
-        //List<User> users=mysqlUserServiceImpl.findAll();
-        System.out.println("users found");
+        List<User> users=mysqlUserService.findAll();
+        System.out.println("users found "+users.size());
 
 
 

@@ -73,8 +73,8 @@ public class Controller2Test {
 
         System.out.println("finding users");
 
-        //List<User> users=mysqlUserServiceImpl.findAll();
-        System.out.println("users found");
+        List<User> users=mysqlUserService.findAll();
+        System.out.println("users found (AutoConfigureMockMvc) integration test "+users.size());
 
         //System.out.println(this.mockMvc.toString());
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
