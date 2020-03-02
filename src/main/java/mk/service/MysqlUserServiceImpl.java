@@ -16,7 +16,11 @@ public class MysqlUserServiceImpl implements MysqlUserService{
 
 	@Override
 	public User addUser(User user) {
+
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service add user "+user);
+
 		mysqlUserRepository.save(user);
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service add user END "+user);
 
 		return user;
 	}
@@ -24,9 +28,8 @@ public class MysqlUserServiceImpl implements MysqlUserService{
 	@Override
 	public User findByEmail(String email) {
 
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>findByEmail "+email);
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service findByEmail "+email+" "+mysqlUserRepository.findByEmail(email));
 
-		
 		return mysqlUserRepository.findByEmail(email);
 
 		
