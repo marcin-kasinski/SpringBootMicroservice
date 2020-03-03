@@ -34,10 +34,9 @@ import java.util.List;
 
 
 @SpringBootTest
-//@RunWith(SpringJUnit4ClassRunner.class)
+
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
-//@AutoConfigureMockMvc
 
 @ActiveProfiles("test") // Like this
 public class Controller2Test {
