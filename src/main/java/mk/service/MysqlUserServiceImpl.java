@@ -28,9 +28,11 @@ public class MysqlUserServiceImpl implements MysqlUserService{
 	@Override
 	public User findByEmail(String email) {
 
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service findByEmail "+email+" "+mysqlUserRepository.findByEmail(email));
+		User user= mysqlUserRepository.findByEmail(email);
+		User user2= mysqlUserRepository.findByEmail(email+"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Service findByEmail "+email+" "+user);
 
-		return mysqlUserRepository.findByEmail(email);
+		return user;
 
 		
 	}

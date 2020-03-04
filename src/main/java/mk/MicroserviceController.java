@@ -307,7 +307,7 @@ public class MicroserviceController {
 	public MongoUser addUser_fallbackMethod(MongoUser user,@RequestHeader HttpHeaders headers)
 	{
 		MongoUser user2= new MongoUser();
-		user2.setId(new Long(12345));
+		user2.setId(12345L);
 		user2.setName("fallback");
 		user2.setEmail("fallback@fallback");
 		return user2;

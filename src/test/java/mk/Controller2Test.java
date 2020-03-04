@@ -16,6 +16,7 @@ import mk.service.MysqlUserService;
 import mk.service.MysqlUserServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -58,7 +59,7 @@ public class Controller2Test {
     public void shouldReturnDefaultMessage() throws Exception {
 
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        System.out.println("adding user");
+        System.out.println("adding user do sample database");
 
         User user = new User();
         user.setName("XTESTName");
@@ -68,9 +69,13 @@ public class Controller2Test {
 
         //when(mysqlUserService.findByEmail("x@x.com")         ).thenReturn(user);
 
+
+
+
         System.out.println("user added");
 
         System.out.println("finding users");
+
 
         List<User> users=mysqlUserService.findAll();
         System.out.println("users found (AutoConfigureMockMvc) integration test "+users.size());
